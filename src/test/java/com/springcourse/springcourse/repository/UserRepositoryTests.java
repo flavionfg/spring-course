@@ -1,6 +1,7 @@
 package com.springcourse.springcourse.repository;
 
 import com.springcourse.springcourse.domain.enums.Role;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.springcourse.springcourse.domain.User;
@@ -21,7 +22,8 @@ public class UserRepositoryTests {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
+
+   @Ignore
     public void saveTest(){
        User user = new User(null,"Kevin", "kevin.wingi@gmail.com", "123", Role.ADMINISTRATOR, null, null);
        User createdUser = userRepository.save(user);
@@ -30,7 +32,7 @@ public class UserRepositoryTests {
 
     }
 
-    @Test
+    @Ignore
     public void updateTest(){
         User user = new User(1L,"Kevin wing","kevin.wingi@gmail.com","123",Role.ADMINISTRATOR,null,null);
         User updatedUser = userRepository.save(user);
@@ -38,7 +40,7 @@ public class UserRepositoryTests {
         assertThat(updatedUser.getName()).isEqualTo("Kevin wing");
     }
 
-    @Test
+    @Ignore
     public void getByIdTest(){
       Optional<User> result = userRepository.findById(1L);
       User user = result.get();
@@ -46,19 +48,25 @@ public class UserRepositoryTests {
       assertThat(user.getPassword()).isEqualTo("123");
     }
 
-    @Test
+    @Ignore
     public void listTest(){
         List<User> users = userRepository.findAll();
 
         assertThat(users.size()).isEqualTo(1);
     }
 
-    @Test
+    @Ignore
     public void loginTest(){
         Optional<User> result = userRepository.login("kevin.wingi@gmail.com","123");
         User loggedUser = result.get();
 
         assertThat(loggedUser.getId()).isEqualTo(1L);
+    }
+
+    @Test
+    public void updateRoleTest() {
+        int affectedRows = userRepository.updateRole(11L, Role.ADMINISTRATOR);
+        assertThat(affectedRows).isEqualTo(1);
     }
 
 }
