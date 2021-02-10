@@ -2,10 +2,7 @@ package com.springcourse.springcourse.resource;
 
 import com.springcourse.springcourse.domain.Request;
 import com.springcourse.springcourse.domain.User;
-import com.springcourse.springcourse.dto.UserLogindto;
-import com.springcourse.springcourse.dto.UserSavedto;
-import com.springcourse.springcourse.dto.UserUpdateRoledto;
-import com.springcourse.springcourse.dto.UserUpdatedto;
+import com.springcourse.springcourse.dto.*;
 import com.springcourse.springcourse.model.PageModel;
 import com.springcourse.springcourse.model.PageRequestModel;
 import com.springcourse.springcourse.security.JwtManager;
@@ -67,7 +64,7 @@ public class UserResource {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> Login(@RequestBody @Valid UserLogindto user){
+    public ResponseEntity<UserLoginResponsedto> Login(@RequestBody @Valid UserLogindto user){
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword());
         Authentication auth = authManager.authenticate(token);
 
@@ -83,9 +80,7 @@ public class UserResource {
                 .map(authority -> authority.getAuthority())
                 .collect(Collectors.toList());
 
-        String jwt = jwtManager.createToken(email,roles);
-
-        return ResponseEntity.ok(jwt);
+        return ResponseEntity.ok(jwtManager.createToken(email,roles));
     }
 
     @GetMapping("/{id}/request")
