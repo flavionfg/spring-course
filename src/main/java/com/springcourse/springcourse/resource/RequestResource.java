@@ -6,11 +6,13 @@ import com.springcourse.springcourse.dto.RequestSavedto;
 import com.springcourse.springcourse.dto.RequestUpdatedto;
 import com.springcourse.springcourse.model.PageModel;
 import com.springcourse.springcourse.model.PageRequestModel;
+import com.springcourse.springcourse.security.AccessManager;
 import com.springcourse.springcourse.service.RequestService;
 import com.springcourse.springcourse.service.RequestStageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +27,9 @@ public class RequestResource {
     @Autowired
     private RequestStageService requestStageService;
 
+    @Autowired
+    private AccessManager accessManager;
+
     @PostMapping
     public ResponseEntity<Request> save (@RequestBody @Valid RequestSavedto requestdto){
         Request request = requestdto.trasnformToRequest();
@@ -32,6 +37,7 @@ public class RequestResource {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRequest);
     }
 
+    @PreAuthorize("@accessManager.isRequestOwner(#id)")
     @PutMapping("/{id}")
     public ResponseEntity<Request> update(@PathVariable(name = "id") Long id, @RequestBody @Valid RequestUpdatedto requestdto){
         Request request = requestdto.trasnformToRequest();
