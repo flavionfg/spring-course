@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 public class AuthorizationFilter extends OncePerRequestFilter {
 
     @Override
@@ -60,7 +59,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 grantedAuthorities.add(new SimpleGrantedAuthority(role));
             });
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(email,null,grantedAuthorities);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(email,null, grantedAuthorities);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
