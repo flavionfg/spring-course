@@ -35,10 +35,9 @@ public class UserResource {
     @Autowired private JwtManager jwtManager;
     @Autowired private AccessManager accessManager;
 
-
-    @Secured({"ROLE_ADMINISTRATOR"})
+    @Secured({ "ROLE_ADMINISTRATOR" })
     @PostMapping
-    public ResponseEntity<User> save(@RequestBody @Valid UserSavedto userdto){
+    public ResponseEntity<User> save(@RequestBody @Valid UserSavedto userdto) {
         User userToSave = userdto.trasnformToUser();
         User createdUser = userService.save(userToSave);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
@@ -101,7 +100,7 @@ public class UserResource {
         return ResponseEntity.ok(pm);
     }
 
-    @Secured({"ROLE_ADMINISTRATOR"})
+    @Secured({ "ROLE_ADMINISTRATOR" })
     @PatchMapping("/role/{id}")
     public ResponseEntity<?> updateRole(@PathVariable(name = "id") Long id, @RequestBody @Valid UserUpdateRoledto userdto){
     User user = new User();

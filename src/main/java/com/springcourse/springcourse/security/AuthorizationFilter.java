@@ -54,10 +54,8 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             String email = claims.getSubject();
             List<String> roles = (List<String>) claims.get(SecurityConstants.JWT_ROLE_KEY);
 
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-            roles.forEach(role -> {
-                grantedAuthorities.add(new SimpleGrantedAuthority(role));
-            });
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+            roles.forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role)));
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(email,null, grantedAuthorities);
 
