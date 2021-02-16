@@ -20,15 +20,15 @@ public class AccessManager {
     @Autowired
     private RequestService requestService;
 
-    public boolean isOwner(Long id){
-        String email = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<User> result = userRepository.findByEmail(email);
+    public boolean isOwner(Long id) {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findByEmail(email);
 
-        if(!result.isPresent()) throw new NotFoundException("There are not user with email = " + email);
+        if (!user.isPresent()) throw new NotFoundException("There are not user with email = " + email);
 
-       User user = result.get();
+        User result = user.get();
 
-       return user.getId() == id;
+        return result.getId().longValue() == id;
     }
 
     public boolean isRequestOwner(Long id){
@@ -41,7 +41,7 @@ public class AccessManager {
 
         Request request = requestService.getById(id);
 
-        return user.getId() == request.getOwner().getId();
+        return user.getId().longValue() == request.getOwner().getId();
     }
 
 }

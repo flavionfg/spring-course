@@ -33,7 +33,7 @@ public class UserResource {
     @Autowired private RequestService requestService;
     @Autowired private AuthenticationManager authManager;
     @Autowired private JwtManager jwtManager;
-    @Autowired private AccessManager accessManager;
+
 
     @Secured({ "ROLE_ADMINISTRATOR" })
     @PostMapping
