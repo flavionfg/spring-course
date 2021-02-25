@@ -33,7 +33,7 @@ public class RequestRepositoryTests {
 
         User owner = new User();
         owner.setId(1L);
-        Request request = new Request(null,"computer","new computer",new Date(), RequestState.OPEN,owner,null);
+        Request request = new Request(null,"computer","new computer",new Date(), RequestState.OPEN,owner,null,null);
         Request createdRequest = requestRepository.save(request);
 
         assertThat(createdRequest.getId()).isEqualTo(1L);
@@ -43,7 +43,7 @@ public class RequestRepositoryTests {
     public void updateTest(){
         User owner = new User();
         owner.setId(1L);
-        Request request = new Request(null,"cellphone","new computer",new Date(), RequestState.OPEN,owner,null);
+        Request request = new Request(null,"cellphone","new computer",new Date(), RequestState.OPEN,owner,null,null);
         Request updateRequested = requestRepository.save(request);
 
         assertThat(updateRequested.getSubject()).isEqualTo("cellphone");
