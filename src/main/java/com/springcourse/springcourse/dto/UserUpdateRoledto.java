@@ -1,15 +1,20 @@
 package com.springcourse.springcourse.dto;
 
 import com.springcourse.springcourse.domain.enums.Role;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
 
-@Getter @Setter
 public class UserUpdateRoledto {
 
     @NotNull(message = "Role Required")
     private Role role;
+
+    public @NotNull(message = "Role Required") Role getRole() {
+        return this.role;
+    }
+
+    public void setRole(@NotNull(message = "Role Required") Role role) {
+        this.role = role;
+    }
 }

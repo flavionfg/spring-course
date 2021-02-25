@@ -1,12 +1,8 @@
 package com.springcourse.springcourse.exception;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Date;
 import java.util.List;
 
-@Getter @Setter
 public class ApiErrorList extends ApiError{
 
     private static final  long serialVersionUID = 1l;
@@ -19,13 +15,11 @@ public class ApiErrorList extends ApiError{
     }
 
 
+    public List<String> getErrors() {
+        return this.errors;
+    }
 
-
-
-
-
-
-
-
-
+    public void setErrors(List<String> errors) {
+        this.errors = errors;
+    }
 }

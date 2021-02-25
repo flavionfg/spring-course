@@ -1,8 +1,5 @@
 package com.springcourse.springcourse.domain;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springcourse.springcourse.domain.enums.RequestState;
 import lombok.AllArgsConstructor;
@@ -12,13 +9,15 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 @Entity(name = "request")
-public class Request implements Serializable {
+public class Request implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +25,7 @@ public class Request implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 75,nullable = false)
+    @Column(length = 75, nullable = false)
     private String subject;
 
     @Column(columnDefinition = "text")
@@ -34,7 +33,7 @@ public class Request implements Serializable {
 
     @Column(name = "creation_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date criationDate;
+    private Date creationDate;
 
     @Column(length = 12, nullable = false)
     @Enumerated(EnumType.STRING)
@@ -44,11 +43,19 @@ public class Request implements Serializable {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-    @Getter(onMethod = @__(@JsonIgnore))
     @OneToMany(mappedBy = "request")
     private List<RequestStage> stages = new ArrayList<RequestStage>();
 
-    @Getter(onMethod = @__(@JsonIgnore))
     @OneToMany(mappedBy = "request")
     private List<RequestFile> files = new ArrayList<RequestFile>();
+
+    @JsonIgnore
+    public List<RequestStage> getStages() {
+        return this.stages;
+    }
+
+    @JsonIgnore
+    public List<RequestFile> getFiles() {
+        return this.files;
+    }
 }

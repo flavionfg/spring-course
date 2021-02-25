@@ -5,7 +5,6 @@ import com.springcourse.springcourse.domain.User;
 import com.springcourse.springcourse.dto.*;
 import com.springcourse.springcourse.model.PageModel;
 import com.springcourse.springcourse.model.PageRequestModel;
-import com.springcourse.springcourse.security.AccessManager;
 import com.springcourse.springcourse.security.JwtManager;
 import com.springcourse.springcourse.service.RequestService;
 import com.springcourse.springcourse.service.UserService;

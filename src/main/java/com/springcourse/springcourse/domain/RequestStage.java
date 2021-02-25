@@ -2,21 +2,11 @@ package com.springcourse.springcourse.domain;
 
 
 import com.springcourse.springcourse.domain.enums.RequestState;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter @Setter
 @Entity(name = "request_stage")
 public class RequestStage implements Serializable{
 
@@ -44,4 +34,64 @@ public class RequestStage implements Serializable{
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
+
+    public RequestStage(Long Id, String description, Date realizationDate, RequestState state, Request request, User owner) {
+        this.Id = Id;
+        this.description = description;
+        this.realizationDate = realizationDate;
+        this.state = state;
+        this.request = request;
+        this.owner = owner;
+    }
+
+    public RequestStage() {
+    }
+
+    public Long getId() {
+        return this.Id;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Date getRealizationDate() {
+        return this.realizationDate;
+    }
+
+    public RequestState getState() {
+        return this.state;
+    }
+
+    public Request getRequest() {
+        return this.request;
+    }
+
+    public User getOwner() {
+        return this.owner;
+    }
+
+    public void setId(Long Id) {
+        this.Id = Id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setRealizationDate(Date realizationDate) {
+        this.realizationDate = realizationDate;
+    }
+
+    public void setState(RequestState state) {
+        this.state = state;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 }
